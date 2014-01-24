@@ -29,6 +29,7 @@ package {
     private static const LOADED_METADATA: String = "loadedmetadata";
     private static const TIME_UPDATE: String = "timeupdate";
     private static const PROGRESS: String = "progress";
+	private static const PLAYING:String = "playing";
 
     private var video: Video;
     private var nc: NetConnection;
@@ -136,14 +137,18 @@ package {
     }
 
     private function onStatus(e: NetStatusEvent): void {
-      if (e.info.level == "status" && e.info.code == "NetStream.Buffer.Full") {
-        currentTime = 0;
-        buffered = ns.bufferLength;
-        jsUpdateProperties({
-          buffered: [0, buffered],
-          currentTime: currentTime
-        });
-        jsEventFire(CAN_PLAY_THROUGH);
+      if (e.info.level == "status") {
+        if(e.info.code == "NetStream.Buffer.Full") {
+          currentTime = 0;
+          buffered = ns.bufferLength;
+          jsUpdateProperties({
+            buffered: [{start: function() {return 0}, end:function() {return buffered}}],
+            currentTime: currentTime
+          });
+          jsEventFire(CAN_PLAY_THROUGH);
+        } else if(e.info.code == "NetStream.Play.Stop") {
+		  jsStop();
+		}
       }
     }
 
@@ -152,8 +157,9 @@ package {
       buffered = ns.bufferLength;
       jsUpdateProperties({
         currentTime: currentTime,
-        buffered: [0, buffered],
-        muted: muted
+        buffered: [{start: function() {return 0}, end:function() {return buffered}}],
+        muted: muted,
+		paused: paused
       });
       jsEventFire(TIME_UPDATE);
       if (cutFrameCounter <= 0) {
@@ -173,6 +179,7 @@ package {
         } else {
           ns.play(src);
         }
+		jsEventFire(PLAYING);
         updateState({
           play: true,
           pause: false
