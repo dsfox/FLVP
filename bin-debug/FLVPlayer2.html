@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+    <title>FLVPlayer test page</title>
+    <script type="text/javascript" src="FLVP.js"></script>
+    <script type="text/javascript">
+    function FLVP_Init() {
+        var flvp = document["FLVPlayer"];
+        var flvp_controller = new FLVP(flvp);
+        flvp_controller.addEventListener("canplaythrough", onCanplay);
+        document.addEventListener("click", onClick);
+        function onClick(e) {
+            console.log(flvp_controller.duration);
+        }
+        function onCanplay(e) {
+            console.log('canplay');
+        }
+    }
+    </script>
+</head>
+
+<body onload="FLVP_Init()">
+    <embed name="FLVPlayer" id="FLVPlayer" height="800" width="600" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" allowscriptaccess ="always" src="FLVPlayer.swf" quality="high" bgcolor="#ffffff" allowFullScreen="true">
+    </embed>
+
+</body>
+
+</html>
