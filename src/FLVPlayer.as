@@ -1,6 +1,5 @@
 package {
 
-  import flash.display.LoaderInfo;
   import flash.display.Sprite;
   import flash.display.StageAlign;
   import flash.display.StageDisplayState;
@@ -59,7 +58,6 @@ package {
       this.removeEventListener(Event.ADDED_TO_STAGE, init);
 
       initInterface();
-      initSource();
       initStage();
       initVideo();
     }
@@ -73,7 +71,7 @@ package {
 
       initStream();
       attachListener();
-      ns.play(src);
+      //ns.play(src);
       ns.addEventListener(NetStatusEvent.NET_STATUS, onStatus, false, 0, true);
       this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       updateState({
@@ -103,21 +101,6 @@ package {
         ExternalInterface.addCallback("pause", jsPause);
         ExternalInterface.addCallback("load", jsLoad);
         ExternalInterface.addCallback("set", jsSetProperty);
-      }
-    }
-
-    private function initSource(): void {
-      var loaderInfo: LoaderInfo = LoaderInfo(this['root'].loaderInfo);
-      var params: Object = loaderInfo.parameters;
-      for (var element: String in params) {
-        if (element == 'src') {
-          src = params[element];
-        }
-      }
-
-      if (!src) {
-        trace('no source. exit');
-        //src = "test.flv";
       }
     }
 
