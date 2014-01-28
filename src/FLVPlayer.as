@@ -61,6 +61,8 @@ package {
       initInterface();
       initStage();
       initVideo();
+
+      ExternalInterface.call("FLVP_Ready");
     }
 
     private function initVideo(): void {

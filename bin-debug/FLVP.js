@@ -1,11 +1,12 @@
 var FLVP_single;
 
-var FLVP = function(_flash) {
+var FLVP = function(_flash, _callback) {
   if (FLVP_single && FLVP_single.flash == flash) {
     return undefined;
   }
   FLVP_single = this;
   this.flash = _flash;
+  this.callback = _callback;
 
   this.properties = {
     "duration": {
@@ -146,4 +147,10 @@ function FLVP_UpdateProperties(properties) {
       console.log("can't update undefined property " + i);
     }
   }
+}
+
+function FLVP_Ready() {
+  console.log('FLVP_Ready');
+  FLVP_single.callback();
+  delete FLVP_single.callback;
 }
