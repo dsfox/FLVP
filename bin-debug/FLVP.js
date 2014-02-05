@@ -86,19 +86,19 @@ var FLVP = function(_flash) {
 }
 
 FLVP.prototype.play = function() {
-    this.flash.play();
+    this.flash.jsPlay();
 }
 
 FLVP.prototype.stop = function() {
-    this.flash.stop();
+    this.flash.jsStop();
 }
 
 FLVP.prototype.pause = function() {
-    this.flash.pause();
+    this.flash.jsPause();
 }
 
 FLVP.prototype.load = function(src) {
-    this.flash.load(src);
+    this.flash.jsLoad(src);
 }
 
 //Simple events interface

@@ -100,11 +100,11 @@ package {
 
     private function initInterface(): void {
       if (ExternalInterface.available) {
-        ExternalInterface.addCallback("play", jsPlay);
-        ExternalInterface.addCallback("stop", jsStop);
-        ExternalInterface.addCallback("pause", jsPause);
-        ExternalInterface.addCallback("load", jsLoad);
-        ExternalInterface.addCallback("set", jsSetProperty);
+        ExternalInterface.addCallback("jsPlay", jsPlay);
+        ExternalInterface.addCallback("jsStop", jsStop);
+        ExternalInterface.addCallback("jsPause", jsPause);
+        ExternalInterface.addCallback("jsLoad", jsLoad);
+        ExternalInterface.addCallback("jsSet", jsSetProperty);
       }
     }
 
@@ -116,7 +116,12 @@ package {
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       } else {
         this.removeEventListener(Event.ENTER_FRAME, onEnterFrame, false);
-		onEnterFrame(new Event(Event.ENTER_FRAME));
+		jsUpdateProperties({
+			currentTime: currentTime,
+			buffered: buffered,
+			muted: muted,
+			paused: paused
+		});
       }
 	  
 	  if(played) {
@@ -217,11 +222,11 @@ package {
     }
     public function jsPause(): void {
       try {
+		updateState({
+			play: false,
+			pause: true
+		});
         ns.pause();
-        updateState({
-          play: false,
-          pause: true
-        });
       } catch (e: Error) {
         trace(e);
       }
