@@ -30,6 +30,8 @@ package {
     private static const TIME_UPDATE: String = "timeupdate";
     private static const PROGRESS: String = "progress";
 	private static const PLAYING:String = "playing";
+	private static const ON_PAUSE:String = "onpause";
+	private static const ON_PLAY:String = "onplay";
 
     private var video: Video;
     private var nc: NetConnection;
@@ -67,8 +69,8 @@ package {
       video = new Video(640, 480);
       video.x = 0;
       video.y = 0;
-      video.width = stage.stageWidth;
-      video.height = stage.stageHeight;
+      //video.width = stage.stageWidth;
+      //video.height = stage.stageHeight;
 
       initStream();
       attachListener();
@@ -108,7 +110,13 @@ package {
     private function updateState(state: Object): void {
       played = state.play === true;
       paused = state.pause === true;
-
+	  
+	  if(played) {
+		  jsEventFire(ON_PLAY);
+	  } else if(paused) {
+		  jsEventFire(ON_PAUSE);
+	  }
+	  
       if (played && !this.hasEventListener(Event.ENTER_FRAME)) {
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       } else {
@@ -122,8 +130,13 @@ package {
         for (var i: String in _info) {
           info[i] = _info[i];
         }
+		
         info.videoWidth = info.width;
         info.videoHeight = info.height;
+		
+		video.height = info.height;
+		video.width = info.width;
+		
         info.src = src;
         jsUpdateProperties(info);
         info.ready = true;
