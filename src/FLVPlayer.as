@@ -13,7 +13,6 @@ package {
   import flash.net.NetStream;
 
   //set swf defaults
-  [SWF(width = "800", height = "600")]
 
   public class FLVPlayer extends Sprite {
 
