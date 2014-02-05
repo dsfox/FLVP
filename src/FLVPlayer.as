@@ -3,6 +3,7 @@ package {
   import flash.display.Sprite;
   import flash.display.StageAlign;
   import flash.display.StageDisplayState;
+  import flash.display.StageScaleMode;
   import flash.events.Event;
   import flash.events.NetStatusEvent;
   import flash.external.ExternalInterface;
@@ -69,8 +70,8 @@ package {
       video = new Video(640, 480);
       video.x = 0;
       video.y = 0;
-      //video.width = stage.stageWidth;
-      //video.height = stage.stageHeight;
+      video.scaleX = 1;
+	  video.scaleY = 1;
 
       initStream();
       attachListener();
@@ -95,6 +96,7 @@ package {
     private function initStage(): void {
       stage.displayState = StageDisplayState.NORMAL;
       stage.align = StageAlign.TOP_LEFT;
+	  stage.scaleMode = StageScaleMode.EXACT_FIT;
     }
 
     private function initInterface(): void {
@@ -109,7 +111,7 @@ package {
 
     private function updateState(state: Object): void {
       played = state.play === true;
-      paused = state.pause === true;
+      paused = !played;//state.pause === true; // less magic
 	  
 	  if(played) {
 		  jsEventFire(PLAYING);
