@@ -112,18 +112,18 @@ package {
       played = state.play === true;
       paused = state.pause === true;
 	  
-	  if(played) {
-		  jsEventFire(PLAYING);
-	  } else if(paused) {
-		  jsEventFire(PAUSE);
-	  }
-	  
       if (played && !this.hasEventListener(Event.ENTER_FRAME)) {
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       } else {
         this.removeEventListener(Event.ENTER_FRAME, onEnterFrame, false);
 		onEnterFrame(new Event(Event.ENTER_FRAME));
       }
+	  
+	  if(played) {
+		  jsEventFire(PLAYING);
+	  } else if(paused) {
+		  jsEventFire(PAUSE);
+	  }
     }
 
     private function attachListener(): void {
