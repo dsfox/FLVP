@@ -142,7 +142,7 @@ package {
           currentTime = 0;
           buffered = ns.bufferLength;
           jsUpdateProperties({
-            buffered: [{start: function() {return 0}, end:function() {return buffered}}],
+            buffered:buffered,
             currentTime: currentTime
           });
           jsEventFire(CAN_PLAY_THROUGH);
@@ -157,7 +157,7 @@ package {
       buffered = ns.bufferLength;
       jsUpdateProperties({
         currentTime: currentTime,
-        buffered: [{start: function() {return 0}, end:function() {return buffered}}],
+        buffered: buffered,
         muted: muted,
 		paused: paused
       });
