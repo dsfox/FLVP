@@ -30,8 +30,8 @@ package {
     private static const TIME_UPDATE: String = "timeupdate";
     private static const PROGRESS: String = "progress";
 	private static const PLAYING:String = "playing";
-	private static const ON_PAUSE:String = "onpause";
-	private static const ON_PLAY:String = "onplay";
+	private static const PAUSE:String = "pause";
+	private static const VOLUMECHANGE:String = "volumechange";
 
     private var video: Video;
     private var nc: NetConnection;
@@ -94,7 +94,7 @@ package {
 
     private function initStage(): void {
       stage.displayState = StageDisplayState.NORMAL;
-      stage.align = StageAlign.TOP;
+      stage.align = StageAlign.TOP_LEFT;
     }
 
     private function initInterface(): void {
@@ -112,9 +112,9 @@ package {
       paused = state.pause === true;
 	  
 	  if(played) {
-		  jsEventFire(ON_PLAY);
+		  jsEventFire(PLAYING);
 	  } else if(paused) {
-		  jsEventFire(ON_PAUSE);
+		  jsEventFire(PAUSE);
 	  }
 	  
       if (played && !this.hasEventListener(Event.ENTER_FRAME)) {
@@ -244,6 +244,7 @@ package {
           case "volume":
             st = new SoundTransform(value);
             ns.soundTransform = st;
+			jsEventFire(VOLUMECHANGE);
             break;
           case "src":
             if (src != value) {
@@ -261,6 +262,7 @@ package {
             st = new SoundTransform(value ? volume : 0);
             ns.soundTransform = st;
             muted = value;
+			jsEventFire(VOLUMECHANGE);
             break;
           case "currentTime":
             ns.seek(value);

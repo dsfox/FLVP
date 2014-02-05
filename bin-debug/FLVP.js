@@ -6,6 +6,7 @@ var FLVP = function(_flash) {
   }
   FLVP_single = this;
   this.flash = _flash;
+  this.initialized = false;
 
   this.properties = {
     "duration": {
@@ -147,6 +148,12 @@ var FLVP = function(_flash) {
     var event = new Event(type);
     console.log('FLVP_EventFire: ' + type);
     FLVP_single.dispatchEvent(event);
+
+    if(!this.initialized && type == "loadedmetadata") {
+      this.flash.setAttribute("width", this.videoWidth);
+      this.flash.setAttribute("height", this.videoHeight);
+      this.initialized = true;
+    }
   }
 
   function FLVP_UpdateProperties(properties) {
