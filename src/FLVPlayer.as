@@ -110,7 +110,7 @@ package {
 
     private function updateState(state: Object): void {
       played = state.play === true;
-      paused = !played;//state.pause === true; // less magic
+      paused = state.pause === true;
 	  
 	  if(played) {
 		  jsEventFire(PLAYING);
@@ -122,6 +122,7 @@ package {
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       } else {
         this.removeEventListener(Event.ENTER_FRAME, onEnterFrame, false);
+		onEnterFrame(new Event(Event.ENTER_FRAME));
       }
     }
 
