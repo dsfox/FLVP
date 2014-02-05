@@ -51,7 +51,7 @@ var FLVP = function(_flash) {
                 return this.__currentTime;
             },
             set: function(value) {
-                this.flash.set("currentTime", value);
+                this.flash.jsSet("currentTime", value);
             }
         },
         "src": {
@@ -59,7 +59,7 @@ var FLVP = function(_flash) {
                 return this.__src;
             },
             set: function(value) {
-                this.flash.set("src", value);
+                this.flash.jsSet("src", value);
             }
         },
         "muted": {
@@ -67,7 +67,7 @@ var FLVP = function(_flash) {
                 return this.__muted;
             },
             set: function(value) {
-                this.flash.set("muted", value);
+                this.flash.jsSet("muted", value);
             }
         },
         "volume": {
@@ -75,7 +75,7 @@ var FLVP = function(_flash) {
                 return this.__volume;
             },
             set: function(value) {
-                this.flash.set("volume", value);
+                this.flash.jsSet("volume", value);
             }
         }
     }
