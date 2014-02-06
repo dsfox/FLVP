@@ -115,7 +115,7 @@ package {
       if (played && !this.hasEventListener(Event.ENTER_FRAME)) {
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       } else {
-        this.removeEventListener(Event.ENTER_FRAME, onEnterFrame, false);
+        //this.removeEventListener(Event.ENTER_FRAME, onEnterFrame, false);
 		jsUpdateProperties({
 			currentTime: currentTime,
 			buffered: buffered,
@@ -247,13 +247,11 @@ package {
     public function jsSetProperty(name: String, value: * ): void {
       try {
         var st: SoundTransform;
-        switch (name) {
-          case "volume":
+        if(name == "volume") {
             st = new SoundTransform(value);
             ns.soundTransform = st;
 			jsEventFire(VOLUMECHANGE);
-            break;
-          case "src":
+		} else if(name == "src") {
             if (src != value) {
               src = value;
               buffered = -1;
@@ -264,16 +262,13 @@ package {
                 pause: false
               });
             }
-            break;
-          case "muted":
+		} else if( name == "muted") {
             st = new SoundTransform(value ? volume : 0);
             ns.soundTransform = st;
             muted = value;
 			jsEventFire(VOLUMECHANGE);
-            break;
-          case "currentTime":
+		} else if(name == "currentTime") {
             ns.seek(value);
-            break;
         }
       } catch (e: Error) {
         trace("unable to set property " + name + "\r" + e);
