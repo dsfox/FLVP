@@ -147,14 +147,7 @@ FLVP.prototype.removeEventListeners = function(type) {
 
 function FLVP_EventFire(type) {
     var event = new Event(type);
-    console.log('FLVP_EventFire: ' + type);
     FLVP_single.dispatchEvent(event);
-
-    if (!this.initialized && type == "loadedmetadata") {
-        this.flash.setAttribute("width", this.videoWidth);
-        this.flash.setAttribute("height", this.videoHeight);
-        this.initialized = true;
-    }
 }
 
 function FLVP_UpdateProperties(properties) {

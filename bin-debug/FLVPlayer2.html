@@ -9,19 +9,21 @@
         var flvp = document["FLVPlayer"];
         var flvp_controller = new FLVP(flvp);
         flvp_controller.addEventListener("canplaythrough", onCanplay);
+        setTimeout(function() { console.log(flvp_controller); flvp_controller.src = "http://openworldtextures.org/test.flv"; flvp_controller.play(); }, 3000);
         document.addEventListener("click", onClick);
         function onClick(e) {
             console.log(flvp_controller.duration);
         }
         function onCanplay(e) {
             console.log('canplay');
+            console.log(flvp_controller.videoWidth, flvp_controller.videoHeight);
         }
     }
     </script>
 </head>
 
-<body onload="FLVP_Init()">
-    <embed name="FLVPlayer" id="FLVPlayer" height="800" width="600" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" allowscriptaccess ="always" src="FLVPlayer.swf" quality="high" bgcolor="#ffffff" allowFullScreen="true">
+<body onload="FLVP_Init()" style="background-color: #000000;">
+    <embed name="FLVPlayer" id="FLVPlayer" height="480" width="640" align="middle" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" allowscriptaccess ="always" src="FLVPlayer.swf" quality="high" bgcolor="#ffffff" allowFullScreen="true">
     </embed>
 
 </body>
