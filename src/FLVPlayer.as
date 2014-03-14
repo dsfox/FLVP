@@ -13,7 +13,8 @@ package {
   import flash.net.NetStream;
 
   //set swf defaults
-
+  [SWF(width="640", height="480")]
+  
   public class FLVPlayer extends Sprite {
 
     private static const CUT_FRAME_VALUE: int = 20;
@@ -141,8 +142,8 @@ package {
         info.videoWidth = info.width;
         info.videoHeight = info.height;
 		
-		video.height = info.height;
-		video.width = info.width;
+		video.height = stage.width;
+		video.width = stage.height;
 		
         info.src = src;
         jsUpdateProperties(info);
