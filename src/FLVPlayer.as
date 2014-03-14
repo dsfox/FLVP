@@ -96,7 +96,7 @@ package {
     private function initStage(): void {
       stage.displayState = StageDisplayState.NORMAL;
       stage.align = StageAlign.TOP_LEFT;
-	  stage.scaleMode = StageScaleMode.SHOW_ALL;
+	  stage.scaleMode = StageScaleMode.EXACT_FIT;
     }
 
     private function initInterface(): void {
