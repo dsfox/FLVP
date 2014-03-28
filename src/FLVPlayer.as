@@ -67,7 +67,7 @@ package {
     }
 
     private function initVideo(): void {
-      video = new Video(640, 480);
+      video = new Video(stage.stageWidth, stage.stageHeight);
       video.x = 0;
       video.y = 0;
       video.scaleX = 1;
