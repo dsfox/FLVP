@@ -182,6 +182,8 @@ package {
         muted: muted,
 		paused: paused
       });
+	  video.width = stage.stageWidth;
+	  video.height = stage.stageHeight;
       jsEventFire(TIME_UPDATE);
       if (cutFrameCounter <= 0) {
         jsEventFire(PROGRESS);
@@ -264,7 +266,8 @@ package {
               });
             }
 		} else if( name == "muted") {
-            st = new SoundTransform(value ? volume : 0);
+			var nValue:Boolean = value == 1 || value == true || value == "true";
+            st = new SoundTransform(nValue ? volume : 0);
             ns.soundTransform = st;
             muted = value;
 			jsEventFire(VOLUMECHANGE);
