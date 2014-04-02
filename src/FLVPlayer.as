@@ -270,6 +270,9 @@ package {
             st = new SoundTransform(nValue ? 0 : volume);
             ns.soundTransform = st;
             muted = value;
+			jsUpdateProperties({
+				muted: muted
+			});
 			jsEventFire(VOLUMECHANGE);
 		} else if(name == "currentTime") {
             ns.seek(value);
