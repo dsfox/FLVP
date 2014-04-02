@@ -265,9 +265,9 @@ package {
                 pause: false
               });
             }
-		} else if( name == "muted") {
+		} else if(name == "muted") {
 			var nValue:Boolean = value == 1 || value == true || value == "true";
-            st = new SoundTransform(nValue ? volume : 0);
+            st = new SoundTransform(nValue ? 0 : volume);
             ns.soundTransform = st;
             muted = value;
 			jsEventFire(VOLUMECHANGE);
