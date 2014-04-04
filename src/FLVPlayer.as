@@ -32,7 +32,7 @@ package {
     private static const PROGRESS: String = "progress";
 	private static const PLAYING:String = "playing";
 	private static const PAUSE:String = "pause";
-	private static const VOLUMECHANGE:String = "volumechange";
+	private static const VOLUMECHANGE:String = "	";
 
     private var video: Video;
     private var nc: NetConnection;
@@ -276,6 +276,8 @@ package {
 			jsEventFire(VOLUMECHANGE);
 		} else if(name == "currentTime") {
             ns.seek(value);
+			st = new SoundTransform(muted ? 0 : volume);
+			ns.soundTransform(st);
         }
       } catch (e: Error) {
         trace("unable to set property " + name + "\r" + e);
