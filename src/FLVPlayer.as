@@ -30,9 +30,9 @@ package {
     private static const LOADED_METADATA: String = "loadedmetadata";
     private static const TIME_UPDATE: String = "timeupdate";
     private static const PROGRESS: String = "progress";
-	private static const PLAYING:String = "playing";
-	private static const PAUSE:String = "pause";
-	private static const VOLUMECHANGE:String = "	";
+    private static const PLAYING:String = "playing";
+    private static const PAUSE:String = "pause";
+    private static const VOLUMECHANGE:String = "volumechange";
 
     private var video: Video;
     private var nc: NetConnection;
