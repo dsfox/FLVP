@@ -71,7 +71,7 @@ package {
       video.x = 0;
       video.y = 0;
       video.scaleX = 1;
-	  video.scaleY = 1;
+      video.scaleY = 1;
 
       initStream();
       attachListener();
@@ -96,7 +96,7 @@ package {
     private function initStage(): void {
       stage.displayState = StageDisplayState.NORMAL;
       stage.align = StageAlign.TOP_LEFT;
-	  stage.scaleMode = StageScaleMode.EXACT_FIT;
+      stage.scaleMode = StageScaleMode.EXACT_FIT;
     }
 
     private function initInterface(): void {
@@ -112,24 +112,24 @@ package {
     private function updateState(state: Object): void {
       played = state.play === true;
       paused = state.pause === true;
-	  
+
       if (played && !this.hasEventListener(Event.ENTER_FRAME)) {
         this.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);
       } else {
         //this.removeEventListener(Event.ENTER_FRAME, onEnterFrame, false);
-		jsUpdateProperties({
-			currentTime: currentTime,
-			buffered: buffered,
-			muted: muted,
-			paused: paused
-		});
+        jsUpdateProperties({
+          currentTime: currentTime,
+          buffered: buffered,
+          muted: muted,
+          paused: paused
+        });
       }
-	  
-	  if(played) {
-		  jsEventFire(PLAYING);
-	  } else if(paused) {
-		  jsEventFire(PAUSE);
-	  }
+
+      if(played) {
+        jsEventFire(PLAYING);
+      } else if(paused) {
+        jsEventFire(PAUSE);
+      }
     }
 
     private function attachListener(): void {
@@ -138,13 +138,13 @@ package {
         for (var i: String in _info) {
           info[i] = _info[i];
         }
-		
+
         info.videoWidth = info.width;
         info.videoHeight = info.height;
-		
-		video.height = stage.width;
-		video.width = stage.height;
-		
+
+        video.height = stage.width;
+        video.width = stage.height;
+
         info.src = src;
         jsUpdateProperties(info);
         info.ready = true;
@@ -168,8 +168,8 @@ package {
           });
           jsEventFire(CAN_PLAY_THROUGH);
         } else if(e.info.code == "NetStream.Play.Stop") {
-		  jsStop();
-		}
+          jsStop();
+        }
       }
     }
 
@@ -180,10 +180,10 @@ package {
         currentTime: currentTime,
         buffered: buffered,
         muted: muted,
-		paused: paused
+        paused: paused
       });
-	  video.width = stage.stageWidth;
-	  video.height = stage.stageHeight;
+      video.width = stage.stageWidth;
+      video.height = stage.stageHeight;
       jsEventFire(TIME_UPDATE);
       if (cutFrameCounter <= 0) {
         jsEventFire(PROGRESS);
@@ -202,7 +202,7 @@ package {
         } else {
           ns.play(src);
         }
-		jsEventFire(PLAYING);
+        jsEventFire(PLAYING);
         updateState({
           play: true,
           pause: false
@@ -225,10 +225,10 @@ package {
     }
     public function jsPause(): void {
       try {
-		updateState({
-			play: false,
-			pause: true
-		});
+        updateState({
+          play: false,
+          pause: true
+        });
         ns.pause();
       } catch (e: Error) {
         trace(e);
@@ -251,33 +251,33 @@ package {
       try {
         var st: SoundTransform;
         if(name == "volume") {
-            st = new SoundTransform(value);
-            ns.soundTransform = st;
-			jsEventFire(VOLUMECHANGE);
-		} else if(name == "src") {
-            if (src != value) {
-              src = value;
-              buffered = -1;
-              info = INFO_EMPTY;
-              ns.play(src);
-              updateState({
-                play: true,
-                pause: false
-              });
-            }
-		} else if(name == "muted") {
-			var nValue:Boolean = value == 1 || value == true || value == "true";
-            st = new SoundTransform(nValue ? 0 : volume);
-            ns.soundTransform = st;
-            muted = value;
-			jsUpdateProperties({
-				muted: muted
-			});
-			jsEventFire(VOLUMECHANGE);
-		} else if(name == "currentTime") {
-            ns.seek(value);
-			st = new SoundTransform(muted ? 0 : volume);
-			ns.soundTransform(st);
+          st = new SoundTransform(value);
+          ns.soundTransform = st;
+          jsEventFire(VOLUMECHANGE);
+        } else if(name == "src") {
+          if (src != value) {
+            src = value;
+            buffered = -1;
+            info = INFO_EMPTY;
+            ns.play(src);
+            updateState({
+              play: true,
+              pause: false
+            });
+          }
+        } else if(name == "muted") {
+          var nValue:Boolean = value == 1 || value == true || value == "true";
+          st = new SoundTransform(nValue ? 0 : volume);
+          ns.soundTransform = st;
+          muted = value;
+          jsUpdateProperties({
+            muted: muted
+          });
+          jsEventFire(VOLUMECHANGE);
+        } else if(name == "currentTime") {
+          ns.seek(value);
+          st = new SoundTransform(muted ? 0 : volume);
+          ns.soundTransform(st);
         }
       } catch (e: Error) {
         trace("unable to set property " + name + "\r" + e);
